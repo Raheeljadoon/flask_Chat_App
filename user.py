@@ -18,7 +18,6 @@ class User:
     def is_anonymous(self):
         return True
 
-    @staticmethod
     def get_id(self):
         return self.username
 

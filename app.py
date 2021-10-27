@@ -4,9 +4,12 @@ from flask_login import LoginManager, login_required, login_user,logout_user
 from db import get_user
 
 app = Flask(__name__)
+app.secret_key = "raheel"
+
 socketio = SocketIO(app)
 login_manager = LoginManager()
 login_manager.init_app(app) 
+login_manager.login_view = 'login'
 
 @app.route("/")
 def home():
@@ -14,14 +17,15 @@ def home():
     title = "code title"
     return render_template("index.html", title = title)
 
-@app.route("/login", methods = ["GET","POST"])
+@app.route("/login", methods = ['GET','POST'])
 def login():
-    message = ''
-    if request.method == "POST":
+   
+    if request.method == 'POST':
+        message = ''
         username = request.form.get('username')
         password_input = request.form.get('password')
-        user = get_user('username')
-        print(user)
+        user = get_user(username)
+        print("------------user----------",user)
         if user and user.check_password(password_input):
             login_user(user)
             return redirect(url_for("home"))

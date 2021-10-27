@@ -13,10 +13,10 @@ def save_user(username , email , password):
 
 
 def get_user(username):
-    user_data = users_collection.find_one({"id": username})
+    user_data = users_collection.find_one({"_id": username})
     print("---------user_data----------",user_data)
-    return User (user_data['id'],user_data['email'],user_data['password']) if user_data else None
+    return User(user_data["_id"],user_data['email'],user_data['password']) if user_data else None
 
 
-# save_user("oykamal","kamal@gmail.com","pass")
-print(get_user('oykamal'))
+# save_user("raheel","raheel@gmail.com","pass")
+# print(get_user('raheel'))
