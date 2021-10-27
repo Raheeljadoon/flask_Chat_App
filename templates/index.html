@@ -6,11 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
+    <style>
+        .div1{
+            width: 500px;
+            clear: both;
+            
+            
+        }
+        .div1 input{
+            width: 100%;
+            clear: both;
+        }
+        form{
+            color :green;
+            
+        }
+        input, textarea, select {
+            color :black;
+            background-color : lightblue;
+        }
+    button{
+        color : rgb(255, 25, 0);
+        background-color : lightblue;
+        margin-top:5px;
+    }
+    </style>
 </head>
 
 <body>
     
     <h1>My Chat App</h1>
+    <h3>Hi {%if current_user.is_authenticated%}{{current_user.username}}!{%else %}Guest!{%endif%}</h3>
+    <div class = "div1">
     <form action = '/chat'>
         <div >
             <label> Enter your username </label>
@@ -22,7 +49,7 @@
         </div>
         <button type = "submit">Submit</button>
     </form>
-
+</div>
 </body>
 
 </html>

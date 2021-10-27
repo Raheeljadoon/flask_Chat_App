@@ -18,5 +18,5 @@ def get_user(username):
     return User(user_data["_id"],user_data['email'],user_data['password']) if user_data else None
 
 
-# save_user("raheel","raheel@gmail.com","pass")
+# save_user("kamal_khan","raheel@gmail.com","pass")
 # print(get_user('raheel'))

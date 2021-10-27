@@ -1,7 +1,9 @@
 from flask import Flask, render_template ,request, redirect , url_for 
 from flask_socketio import SocketIO , join_room
-from flask_login import LoginManager, login_required, login_user,logout_user
-from db import get_user
+from flask_login import LoginManager, login_required, login_user,logout_user , current_user
+import pymongo
+from db import get_user , save_user
+from pymongo.errors import DuplicateKeyError 
 
 app = Flask(__name__)
 app.secret_key = "raheel"
@@ -19,9 +21,13 @@ def home():
 
 @app.route("/login", methods = ['GET','POST'])
 def login():
+
+    message = ''
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
    
     if request.method == 'POST':
-        message = ''
+       
         username = request.form.get('username')
         password_input = request.form.get('password')
         user = get_user(username)
@@ -34,7 +40,37 @@ def login():
 
     return render_template('login.html', message = message)
 
+@app.route("/signup" , methods=['GET','POST'])
+def signup():
+    message = ''
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+   
+    if request.method == 'POST':
+       
+        username = request.form.get('username')
+        password = request.form.get('password')
+        email = request.form.get('email')
+        # user = get_user(username)
+        try:
+            save_user(username, email , password)
+            return redirect(url_for("login"))
+        except DuplicateKeyError :
+            message = 'user already exists !'
+       
+
+    return render_template('signup.html', message = message)
+
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
+
 @app.route("/chat")
+@login_required
 def chat():
     username = request.args.get('username')
     room = request.args.get('room')

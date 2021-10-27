@@ -32,20 +32,28 @@
     </style>
 </head>
 <body>
-    <h1>Login</h1>
+    <h1 style= color:indigo;>Sign Up</h1>
     <h3>{{message}}</h3>
-<div class = "div1">
- <form method="post" action = '/login'>
-    <label>Username</label> 
-    <input type="text" name = "username">
-    <br>
-    <label>Password</label>
-    <input type = "password" name="password">
-    <br>
-    <button type="submit" >Submit</button>
 
-</form> 
-</div>  
+<div class = "div1">
+    <form method="post" action = '/signup'>
+    
+        <label>Username</label> 
+        <input type="text" name = "username">
+        <br>
+    
+   
+        <label>email</label> 
+        <input type="email" name = "email">
+        <br>
+   
+        <label>Password</label>
+        <input type = "password" name="password">
+        <br>
+
+        <button type="submit" >Submit</button>
+    </form>
+</div>
 
 </body>
 </html>
